@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Excel Processor</title>
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Include SheetJS & html2canvas using CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Attendance Processor</h1>
+      <p>Upload your Excel file to automatically extract times, calculate remarks, and filter regions.</p>
+    </header>
+
+    <main>
+      <div class="upload-area" id="uploadArea">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+        <h3>Drag & Drop your Excel file here</h3>
+        <p>or click to browse</p>
+        <input type="file" id="fileInput" accept=".xlsx, .xls, .csv">
+      </div>
+
+      <div class="status-panel" id="statusPanel" style="display: none;">
+        <div class="spinner"></div>
+        <p id="statusText">Processing your file...</p>
+      </div>
+
+      <div id="pivotContainer" style="display: none; margin-top: 2rem; overflow-x: auto; background: white; padding: 1rem; border-radius: 8px;">
+        <div id="pivotReport">
+          <!-- Dynamically generated pivot table will go here -->
+        </div>
+        <div id="regionButtonsContainer"></div>
+      </div>
+
+      <div id="detailContainer" style="display: none; margin-top: 2rem; background: white; padding: 1.5rem; border-radius: 8px; overflow-x: auto; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); border: 1px solid #334155; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+           <h2 id="detailTitle" style="color: #0bd18a; font-size: 1.4rem; font-weight: 700;">Region Details</h2>
+           <button id="backBtn" class="download-btn" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">&larr; Back to Dashboard</button>
+        </div>
+        <div id="locationTabs" class="slider-container"></div>
+        <div id="detailReport"></div>
+      </div>
+
+      <div class="btn-container" id="downloadBtnContainer" style="display: none; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+         <button id="downloadBtn" class="download-btn">Download Processed Excel</button>
+         <button id="downloadImgBtn" class="download-btn" style="background: var(--success); color: white;">Download Picture</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
