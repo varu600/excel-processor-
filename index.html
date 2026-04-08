@@ -132,8 +132,8 @@
         <div class="btn-container" id="downloadBtnContainer"
           style="display: none; gap: 1rem; justify-content: center; flex-wrap: wrap;">
           <button id="downloadBtn" class="download-btn">Download Processed Excel</button>
-          <button id="downloadNotMarkedBtn" class="download-btn" style="background: #ef4444; color: white;">Download Not
-            Marked Data</button>
+          <button id="downloadNotMarkedBtn" class="download-btn" style="background: #ef4444; color: white;">Download
+            Absent Data</button>
           <button id="downloadImgBtn" class="download-btn" style="background: var(--success); color: white;">Download
             Picture</button>
         </div>
@@ -152,6 +152,8 @@
           Home
         </button>
         <div class="section-nav-label">🤝 Meeting Module</div>
+      </div>
+
       </div>
 
       <header class="meeting-header">
@@ -181,17 +183,38 @@
 
         <div id="meetingTableContainer"
           style="display: none; margin-top: 2rem; background: white; padding: 1rem; border-radius: 8px; overflow-x: auto; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);">
+          <div id="statusPanel"
+            style="display: none; margin-top: 2rem; padding: 1.5rem; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; transition: all 0.3s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+            <div id="statusText" style="font-weight: 800; font-size: 1.1rem; color: #1e293b; margin-bottom: 0.5rem;">
+              Ready to process file...</div>
+            <div id="statusSubtext" style="font-size: 0.85rem; color: #64748b;">Waiting for a valid Meeting Excel file.
+            </div>
+            <div id="debugToggleBtn"
+              style="margin-top: 10px; font-size: 0.7rem; color: #7c3aed; cursor: pointer; text-decoration: underline; font-weight: 700;">
+              Show Debug Logs</div>
+          </div>
+
+          <div id="debugConsole"
+            style="display: none; margin-top: 1rem; background: #0f172a; color: #38bdf8; padding: 1rem; border-radius: 8px; font-family: 'Consola', monospace; font-size: 0.75rem; max-height: 200px; overflow-y: auto; border: 1px solid #1e293b; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.06);">
+            <div
+              style="border-bottom: 1px solid #1e293b; padding-bottom: 5px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: #94a3b8; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em;">Console
+                Output</span>
+              <span
+                onclick="document.getElementById('debugConsole').innerHTML='<div style=\'color:#94a3b8\'>Logs Cleared</div>'"
+                style="cursor:pointer; color:#f43f5e;">Clear</span>
+            </div>
+            <div id="debugLogList"></div>
+          </div>
+
           <div id="meetingTableReport"></div>
 
           <!-- Buttons now positioned below the table and above the gallery -->
           <div class="btn-container" id="meetingDownloadBtnContainer"
             style="display: none; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; margin-bottom: 2rem; padding: 1.5rem; background: #f8fafc; border-radius: 12px; border: 1px dashed #cbd5e1;">
-            <button id="meetingDownloadBtn" class="download-btn" style="background: #8b5cf6;">Download Meeting
-              Excel</button>
-            <button id="meetingDownloadImgBtn" class="download-btn"
-              style="background: var(--success); color: white;">Download Picture</button>
-            <button id="meetingResetBtn" class="download-btn" style="background: #475569; color: white;">Upload
-              Another</button>
+            <button id="meetingDownloadBtn" class="download-btn" style="background: #8b5cf6;">Download Meeting Excel</button>
+            <button id="meetingDownloadImgBtn" class="download-btn" style="background: var(--success); color: white;">Download Picture</button>
+            <button id="meetingResetBtn" class="download-btn" style="background: #475569; color: white;">Upload Another</button>
           </div>
 
           <div id="meetingPhotoGallery"></div>
@@ -201,7 +224,7 @@
 
   </div><!-- /cont ainer -->
 
-  <script src="script.js"></script>
+  <script src="script.js?v=999"></script>
 </body>
 
 </html>
