@@ -2,16 +2,16 @@
 // SECTION NAVIGATION
 // ══════════════════════════════════════════
 function showSection(name) {
-  document.getElementById('landingSection').style.display = 'none';
-  document.getElementById('attendanceSection').style.display = 'none';
-  document.getElementById('meetingSection').style.display = 'none';
-  if (name === 'home') {
-    document.getElementById('landingSection').style.display = 'block';
-  } else if (name === 'attendance') {
-    document.getElementById('attendanceSection').style.display = 'block';
-  } else if (name === 'meeting') {
-    document.getElementById('meetingSection').style.display = 'block';
-  }
+  const sections = ['landingSection', 'attendanceSection', 'meetingSection'];
+  sections.forEach(s => {
+    const el = document.getElementById(s);
+    if (el) el.style.display = 'none';
+  });
+
+  const target = (name === 'home') ? 'landingSection' : (name + 'Section');
+  const targetEl = document.getElementById(target);
+  if (targetEl) targetEl.style.display = 'block';
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 // Start on landing page
@@ -1746,10 +1746,10 @@ document.addEventListener('click', (e) => {
 document.getElementById('meetingResetBtn').addEventListener('click', () => {
   meetingWorkbook = null; meetingAllRows = []; meetingAllColumns = []; meetingFileName = ''; mCols = {};
   meetingFileInput.value = '';
-  document.getElementById('meetingTableContainer').style.display = 'none';
-  document.getElementById('meetingDownloadBtnContainer').style.display = 'none';
-  document.getElementById('snipeContainer').style.display = 'none';
-  meetingStatusPanel.style.display = 'none';
-  meetingUploadArea.style.display = 'block';
-  meetingStatusText.style.color = '';
+  const elementsToHide = ['meetingTableContainer', 'meetingDownloadBtnContainer', 'snipeContainer', 'meetingStatusPanel', 'meetingInfoPanel'];
+  elementsToHide.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  if (meetingUploadArea) meetingUploadArea.style.display = 'block';
 });
