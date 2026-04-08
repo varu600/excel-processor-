@@ -154,27 +154,23 @@
         <div class="section-nav-label">🤝 Meeting Module</div>
       </div>
 
-      </div>
-
-      <header class="meeting-header">
-        <h1 class="meeting-title">Meeting Tracker</h1>
-        <p>Upload your meeting Excel file to view and download the formatted meeting report.</p>
-      </header>
-
       <main>
-        <div class="upload-area meeting-upload" id="meetingUploadArea">
-          <div class="icon" style="color: #a78bfa;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
+        <div id="meetingView" class="dashboard-card p-4" style="display: none;">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title m-0">Meeting Summary</h2>
+            <div id="meetingLastUpdated" class="text-muted small"></div>
           </div>
-          <h3>Drag &amp; Drop Meeting Excel here</h3>
-          <p>or click to browse</p>
-          <input type="file" id="meetingFileInput" accept=".xlsx, .xls, .csv">
-        </div>
+
+          <div class="upload-area meeting-upload" id="meetingUploadArea">
+            <div class="icon" style="color: #a78bfa;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <div class="upload-text">
+              <strong>Drag & Drop Meeting Excel here</strong>
+              <span>or click to browse</span>
+            </div>
+            <input type="file" id="meetingFileInput" style="display: none;" accept=".xlsx, .xls">
+          </div>
 
         <div class="status-panel" id="meetingStatusPanel" style="display: none;">
           <div class="spinner meeting-spinner"></div>
