@@ -849,6 +849,8 @@ const meetingFileInput = document.getElementById('meetingFileInput');
 const meetingStatusPanel = document.getElementById('meetingStatusPanel');
 const meetingStatusText = document.getElementById('meetingStatusText');
 
+meetingUploadArea.addEventListener('click', () => meetingFileInput.click());
+
 // ── Drag & drop ─────────────────────────
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev =>
   meetingUploadArea.addEventListener(ev, preventDefaults, false));
