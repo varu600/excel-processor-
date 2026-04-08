@@ -362,11 +362,11 @@ document.getElementById('downloadNotMarkedBtn')?.addEventListener('click', () =>
 function generatePivotTable(data) {
   const regions = ["APTS", "Dharwad", "Kalburagi", "Tumkur", "Chitradurga"];
   const stats = {
-    "APTS": { total: 0, b730: 0, a730_b830: 0, a830: 0 },
-    "Dharwad": { total: 0, b730: 0, a730_b830: 0, a830: 0 },
-    "Kalburagi": { total: 0, b730: 0, a730_b830: 0, a830: 0 },
-    "Tumkur": { total: 0, b730: 0, a730_b830: 0, a830: 0 },
-    "Chitradurga": { total: 0, b730: 0, a730_b830: 0, a830: 0 }
+    "APTS": { total: 0, b730: 0, a730_b830: 0, a830: 0, notMarked: 0 },
+    "Dharwad": { total: 0, b730: 0, a730_b830: 0, a830: 0, notMarked: 0 },
+    "Kalburagi": { total: 0, b730: 0, a730_b830: 0, a830: 0, notMarked: 0 },
+    "Tumkur": { total: 0, b730: 0, a730_b830: 0, a830: 0, notMarked: 0 },
+    "Chitradurga": { total: 0, b730: 0, a730_b830: 0, a830: 0, notMarked: 0 }
   };
 
   const keys = data.length > 0 ? Object.keys(data[0]) : [];
@@ -401,10 +401,11 @@ function generatePivotTable(data) {
       if (remark === "Before 7:30") stats[displayRegion].b730++;
       else if (remark === "7:30 to 8:30") stats[displayRegion].a730_b830++;
       else if (remark === "8:30 and above") stats[displayRegion].a830++;
+      else if (remark === "Not Been Marked Till 9:45 AM") stats[displayRegion].notMarked++;
     }
   });
 
-  let t_total = 0, t_b730 = 0, t_a730_b830 = 0, t_a830 = 0;
+  let t_total = 0, t_b730 = 0, t_a730_b830 = 0, t_a830 = 0, t_notMarked = 0;
 
   let tbody = "";
   regions.forEach((r, idx) => {
@@ -412,6 +413,7 @@ function generatePivotTable(data) {
     t_b730 += stats[r].b730;
     t_a730_b830 += stats[r].a730_b830;
     t_a830 += stats[r].a830;
+    t_notMarked += stats[r].notMarked;
     tbody += `
       <tr>
         <td style="text-align: center;">${idx + 1}</td>
@@ -420,6 +422,7 @@ function generatePivotTable(data) {
         <td>${stats[r].b730}</td>
         <td>${stats[r].a730_b830}</td>
         <td>${stats[r].a830}</td>
+        <td>${stats[r].notMarked}</td>
       </tr>
     `;
   });
@@ -427,12 +430,13 @@ function generatePivotTable(data) {
   let p_b730 = t_total ? Math.round((t_b730 / t_total) * 100) : 0;
   let p_a730_b830 = t_total ? Math.round((t_a730_b830 / t_total) * 100) : 0;
   let p_a830 = t_total ? Math.round((t_a830 / t_total) * 100) : 0;
+  let p_notMarked = t_total ? Math.round((t_notMarked / t_total) * 100) : 0;
 
   const html = `
     <table class="pivot-table">
       <thead>
         <tr class="header-main">
-          <th colspan="5">Daily Attendance report</th>
+          <th colspan="6">Daily Attendance report</th>
           <th>${reportDate}</th>
         </tr>
         <tr class="header-sub">
@@ -442,6 +446,7 @@ function generatePivotTable(data) {
           <th>Marked before 7:30 am</th>
           <th>Marked 7:30 to 8:30am</th>
           <th>Marked Above 8:30am</th>
+          <th>Not been marked till 9:45 AM.</th>
         </tr>
       </thead>
       <tbody>
@@ -452,6 +457,7 @@ function generatePivotTable(data) {
           <td>${t_b730}</td>
           <td>${t_a730_b830}</td>
           <td>${t_a830}</td>
+          <td>${t_notMarked}</td>
         </tr>
         <tr>
           <td colspan="2" style="text-align: center;">Percentage</td>
@@ -459,6 +465,7 @@ function generatePivotTable(data) {
           <td>${p_b730}%</td>
           <td>${p_a730_b830}%</td>
           <td>${p_a830}%</td>
+          <td>${p_notMarked}%</td>
         </tr>
       </tbody>
     </table>
