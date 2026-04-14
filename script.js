@@ -10,9 +10,16 @@ function showSection(name) {
 
   const target = (name === 'home') ? 'landingSection' : (name + 'Section');
   const targetEl = document.getElementById(target);
-  if (targetEl) targetEl.style.display = 'block';
+  if (targetEl) {
+    targetEl.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+// Global safe style helper
+function safeStyle(id, prop, val) {
+    const el = document.getElementById(id);
+    if (el) el.style[prop] = val;
 }
 // Start on landing page
 showSection('home');
@@ -416,13 +423,13 @@ function generatePivotTable(data) {
     t_notMarked += stats[r].notMarked;
     tbody += `
       <tr>
-        <td style="text-align: center;">${idx + 1}</td>
-        <td style="color: #000; font-weight: 800;">${r}</td>
-        <td>${stats[r].total}</td>
-        <td>${stats[r].b730}</td>
-        <td>${stats[r].a730_b830}</td>
-        <td>${stats[r].a830}</td>
-        <td>${stats[r].notMarked}</td>
+        <td style="text-align: center; border:1px solid #000; padding:10px; font-weight:700;">${idx + 1}</td>
+        <td style="color: #000; font-weight: 700; border:1px solid #000; text-align:left; padding:10px;">${r}</td>
+        <td style="border:1px solid #000; text-align:center; padding:10px; font-weight:700;">${stats[r].total || '-'}</td>
+        <td style="border:1px solid #000; text-align:center; padding:10px; font-weight:700;">${stats[r].b730 || '-'}</td>
+        <td style="border:1px solid #000; text-align:center; padding:10px; font-weight:700;">${stats[r].a730_b830 || '-'}</td>
+        <td style="border:1px solid #000; text-align:center; padding:10px; font-weight:700;">${stats[r].a830 || '-'}</td>
+        <td style="border:1px solid #000; text-align:center; padding:10px; font-weight:700;">${stats[r].notMarked || '-'}</td>
       </tr>
     `;
   });
@@ -433,39 +440,39 @@ function generatePivotTable(data) {
   let p_notMarked = t_total ? Math.round((t_notMarked / t_total) * 100) : 0;
 
   const html = `
-    <table class="pivot-table">
+    <table class="pivot-table" style="background:#fff; border:1px solid #000; color:#000; font-family:'Times New Roman', serif; border-collapse:collapse; width:auto; margin:0 auto;">
       <thead>
-        <tr class="header-main">
-          <th colspan="6">Daily Attendance report</th>
-          <th>${reportDate}</th>
+        <tr style="background:#c6e0b4; color:#000; border:1px solid #000;">
+          <th colspan="6" style="padding:12px; font-size:1.4rem; font-weight:900; text-transform:uppercase; border:1px solid #000;">Daily Attendance report</th>
+          <th style="padding:12px; font-size:1.1rem; font-weight:900; border:1px solid #000;">${reportDate}</th>
         </tr>
-        <tr class="header-sub">
-          <th>Sl. No.</th>
-          <th>Region</th>
-          <th>Total Staffs</th>
-          <th>Marked before 7:30 am</th>
-          <th>Marked 7:30 to 8:30am</th>
-          <th>Marked Above 8:30am</th>
-          <th>Not been marked till 9:45 AM.</th>
+        <tr style="background:#fff; color:#FF0000; border:1px solid #000;">
+          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">Sl. No.</th>
+          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; text-align:left; font-weight:900;">Region Name</th>
+          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">Total Staff</th>
+          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">< 7.30 AM</th>
+          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">7.30 AM TO 8.30 AM</th>
+          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">> 8.30 AM</th>
+          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">Not Marked</th>
         </tr>
       </thead>
       <tbody>
         ${tbody}
-        <tr>
-          <td colspan="2" style="text-align: center;">Total</td>
-          <td>${t_total}</td>
-          <td>${t_b730}</td>
-          <td>${t_a730_b830}</td>
-          <td>${t_a830}</td>
-          <td>${t_notMarked}</td>
+        <tr style="background:#ffff00; font-weight:900; color:#000;">
+          <td colspan="2" style="border:1px solid #000; padding:10px; text-align:left; font-size:1.1rem; background:#ffff00;">Total</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_total}</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_b730}</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_a730_b830}</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_a830}</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_notMarked}</td>
         </tr>
-        <tr>
-          <td colspan="2" style="text-align: center;">Percentage</td>
-          <td></td>
-          <td>${p_b730}%</td>
-          <td>${p_a730_b830}%</td>
-          <td>${p_a830}%</td>
-          <td>${p_notMarked}%</td>
+        <tr style="background:#ffff00; font-weight:900; color:#000;">
+          <td colspan="2" style="border:1px solid #000; padding:10px; text-align:left; font-size:1.1rem;">Percentage (%)</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">100%</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${p_b730}%</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${p_a730_b830}%</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${p_a830}%</td>
+          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${p_notMarked}%</td>
         </tr>
       </tbody>
     </table>
@@ -486,68 +493,39 @@ function generatePivotTable(data) {
 
 document.getElementById('downloadImgBtn').addEventListener('click', () => {
   const pivotEl = document.getElementById('pivotReport');
-
-  // Apply maximum-contrast styles before capture
-  pivotEl.classList.add('capture-mode');
-
-  // Force every cell to pitch-black with max weight + shadow for extra darkness
-  const cells = pivotEl.querySelectorAll('td, th');
-  cells.forEach(cell => {
-    cell.dataset.oldColor = cell.style.color;
-    cell.dataset.oldWeight = cell.style.fontWeight;
-    cell.dataset.oldShadow = cell.style.textShadow;
-    cell.dataset.oldSize = cell.style.fontSize;
-    cell.dataset.oldOpacity = cell.style.opacity;
-
-    cell.style.color = '#000000';
-    cell.style.fontWeight = '900';
-    cell.style.fontSize = '13px';
-    cell.style.opacity = '1';
-    // Subtle repeat-shadow thickens thin strokes — makes numbers visibly bolder
-    cell.style.textShadow = '0 0 0.3px #000, 0 0 0.3px #000, 0 0 0.5px #000';
-  });
-
-  // Also force ALL spans / divs inside to black
-  const allText = pivotEl.querySelectorAll('*');
-  allText.forEach(el => {
-    el.dataset.oldElColor = el.style.color;
-    el.style.color = '#000000';
-  });
-
-  html2canvas(pivotEl, {
-    scale: 3,                    // 3× resolution — very crisp & sharp
-    backgroundColor: '#ffffff',
-    useCORS: true,
+  if (!pivotEl) return;
+  html2canvas(pivotEl, { 
+    scale: 4, 
+    backgroundColor: '#ffffff', 
+    useCORS: true, 
     logging: false,
-    allowTaint: true
+    onclone: (clonedDoc) => {
+      const tbl = clonedDoc.querySelector('table');
+      if (tbl) {
+        tbl.style.border = '2px solid #000';
+        tbl.style.fontFamily = "'Times New Roman', serif";
+        const ths = tbl.querySelectorAll('th');
+        const tds = tbl.querySelectorAll('td');
+        ths.forEach(h => {
+          h.style.border = '2px solid #000';
+          h.style.fontSize = h.getAttribute('colspan') ? '2.2rem' : '1.3rem';
+          h.style.padding = '15px';
+          h.style.textShadow = '0.4px 0.4px 0px ' + (h.style.color === 'rgb(255, 0, 0)' ? '#FF0000' : '#000');
+        });
+        tds.forEach(d => {
+          d.style.border = '2px solid #000';
+          d.style.fontSize = (d.getAttribute('colspan') || d.innerText.includes('Total')) ? '1.5rem' : '1.3rem';
+          d.style.padding = '12px';
+          d.style.textShadow = '0.4px 0.4px 0px ' + (d.style.color === 'rgb(255, 0, 0)' ? '#FF0000' : '#000');
+        });
+      }
+    }
   }).then(canvas => {
-    // Restore all original styles
-    pivotEl.classList.remove('capture-mode');
-    cells.forEach(cell => {
-      cell.style.color = cell.dataset.oldColor || '';
-      cell.style.fontWeight = cell.dataset.oldWeight || '';
-      cell.style.textShadow = cell.dataset.oldShadow || '';
-      cell.style.fontSize = cell.dataset.oldSize || '';
-      cell.style.opacity = cell.dataset.oldOpacity || '';
-      delete cell.dataset.oldColor; delete cell.dataset.oldWeight;
-      delete cell.dataset.oldShadow; delete cell.dataset.oldSize;
-      delete cell.dataset.oldOpacity;
-    });
-    allText.forEach(el => {
-      el.style.color = el.dataset.oldElColor || '';
-      delete el.dataset.oldElColor;
-    });
-
-    const link = document.createElement('a');
-    link.download = 'attendance_pivot.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+    const lnk = document.createElement('a');
+    lnk.download = originalFileName.replace(/\.[^/.]+$/, "") + "_attendance_main.png";
+    lnk.href = canvas.toDataURL('image/png', 1.0);
+    lnk.click();
   }).catch(err => {
-    pivotEl.classList.remove('capture-mode');
-    cells.forEach(cell => {
-      cell.style.color = cell.dataset.oldColor || '';
-      delete cell.dataset.oldColor;
-    });
     console.error('Image capture failed:', err);
   });
 });
@@ -713,14 +691,14 @@ window.renderSlide = function (locName) {
        </thead>
        <tbody>
          ${tbody}
-         <tr class="footer-row">
-           <td colspan="2">GRAND TOTAL</td>
-           <td>${t_total}</td>
-           <td>${t_b730}</td>
-           <td>${t_a730_b830}</td>
-           <td>${t_a830}</td>
-           <td>${t_notMarked}</td>
-           <td>${t_leave}</td>
+         <tr class="footer-row" style="background:#ffff00 !important; color:#000;">
+           <td colspan="2" style="background:#ffff00; color:#000;">GRAND TOTAL</td>
+           <td style="background:#ffff00; color:#000;">${t_total}</td>
+           <td style="background:#ffff00; color:#000;">${t_b730}</td>
+           <td style="background:#ffff00; color:#000;">${t_a730_b830}</td>
+           <td style="background:#ffff00; color:#000;">${t_a830}</td>
+           <td style="background:#ffff00; color:#000;">${t_notMarked}</td>
+           <td style="background:#ffff00; color:#000;">${t_leave}</td>
          </tr>
          <tr class="footer-row-percent">
            <td colspan="3">%</td>
@@ -1074,9 +1052,9 @@ function processMeetingWorkbook(wb, workbookE) {
     if (timeCol) {
       const mins = parseTimeValue(row[timeCol]);
       if (mins === null) row.mBucket = '';
-      else if (mins <= 7 * 60 + 30) row.mBucket = 'Before 7:30';
-      else if (mins <= 8 * 60 + 30) row.mBucket = '7:30 to 8:30';
-      else row.mBucket = '8:30 and above';
+      else if (mins <= 7 * 60 + 30) row.mBucket = '< 7.30 AM';
+      else if (mins <= 8 * 60 + 30) row.mBucket = '7.30 AM TO 8.30 AM';
+      else row.mBucket = '> 8.30 AM';
     }
   });
 
@@ -1118,36 +1096,21 @@ function processMeetingWorkbook(wb, workbookE) {
   meetingStatusText.textContent = statusMsg;
   meetingStatusText.style.color = 'var(--success)';
   document.querySelector('.meeting-spinner').style.display = 'none';
-  document.getElementById('meetingDownloadBtnContainer').style.display = 'flex';
-  document.getElementById('snipeContainer').style.display = 'flex';
-
-  // Instant Check: Update New Status Panel
-  checkLocalProxy().then(isReady => {
-    const sPanel = document.getElementById('systemStatusPanel');
-    const pInd = document.getElementById('proxyIndicator');
-    const pBad = document.getElementById('proxyBadge');
-    if (sPanel) sPanel.style.display = 'flex';
-
-    if (isReady) {
-      if (pInd) pInd.innerHTML = 'CONNECTED (127.0.0.1:3000)';
-      if (pBad) { pBad.innerHTML = "ACTIVE"; pBad.style.color = "#7c3aed"; }
-    } else {
-      if (pInd) pInd.innerHTML = 'DISCONNECTED (Server Stopped)';
-    }
-  });
+  safeStyle('meetingDownloadBtnContainer', 'display', 'flex');
+  console.log("Standalone mode: skipping local proxy check.");
 }
 
 function mIdDistinctCount(rows, tc) {
   if (!tc) return 0;
   let matches = [];
 
-  const bucketLabels = ['Before 7:30', '7:30 to 8:30', '8:30 and above'];
+  const bucketLabels = ['< 7.30 AM', '7.30 AM TO 8.30 AM', '> 8.30 AM'];
 
   // If using raw Time Formula
   if (mCols.time) {
     if (bucketLabels.includes(tc.label)) {
       matches = rows.filter(r => r.mBucket === tc.label);
-    } else if (tc.label === 'Grand Total' || tc.key === '__count__') {
+    } else if (tc.label === 'Total' || tc.label === 'Grand Total' || tc.key === '__count__') {
       // For Grand Total, count all rows that were categorized
       matches = rows.filter(r => r.mBucket && r.mBucket !== '');
     }
@@ -1173,88 +1136,192 @@ function mIdDistinctCount(rows, tc) {
   return set.size;
 }
 
-function buildMeetingPivot(groupCols, labels, rows) {
+function buildMeetingPivot(gCols, gLabs, rows) {
   const map = {};
-  const gCols = Array.isArray(groupCols) ? groupCols : [groupCols];
-  const gLabs = Array.isArray(labels) ? labels : [labels];
-
-  rows.forEach(row => {
-    // Key is a joined string of all group columns
-    const key = gCols.map(col => String(row[col] || '(Blank)').trim() || '(Blank)').join(' | ');
+  rows.forEach(r => {
+    const key = gCols.map(c => r[c] || '(Blank)').join(' | ');
     if (!map[key]) map[key] = [];
-    map[key].push(row);
+    map[key].push(r);
   });
 
   const keys = Object.keys(map).filter(k => !k.includes('(Blank)')).sort();
-  // Handle blanks at the end
   const blankKeys = Object.keys(map).filter(k => k.includes('(Blank)')).sort();
   keys.push(...blankKeys);
 
   const timeCols = [];
   if (mCols.time) {
-    timeCols.push({ key: 'B730', label: 'Before 7:30' });
-    timeCols.push({ key: 'A730', label: '7:30 to 8:30' });
-    timeCols.push({ key: 'A830', label: '8:30 and above' });
-    timeCols.push({ key: 'ROW_TOTAL', label: 'Grand Total' });
+    timeCols.push({ key: 'B730', label: '< 7.30 AM' });
+    timeCols.push({ key: 'A730', label: '7.30 AM TO 8.30 AM' });
+    timeCols.push({ key: 'A830', label: '> 8.30 AM' });
+    timeCols.push({ key: 'ROW_TOTAL', label: 'Total' });
   } else {
-    if (mCols.b730) timeCols.push({ key: mCols.b730, label: 'Before 7:30 AM' });
-    if (mCols.a730_830) timeCols.push({ key: mCols.a730_830, label: '7:30 to 8:30 AM' });
-    if (mCols.a830) timeCols.push({ key: mCols.a830, label: '8:30 AM & Above' });
-    if (mCols.total) timeCols.push({ key: mCols.total, label: 'Grand Total' });
+    if (mCols.b730) timeCols.push({ key: mCols.b730, label: '< 7.30 AM' });
+    if (mCols.a730_830) timeCols.push({ key: mCols.a730_830, label: '7.30 AM TO 8.30 AM' });
+    if (mCols.a830) timeCols.push({ key: mCols.a830, label: '> 8.30 AM' });
+    if (mCols.total) timeCols.push({ key: mCols.total, label: 'Total' });
   }
   if (!timeCols.length) timeCols.push({ key: '__count__', label: 'Total Records' });
-
-  const colSpan = gLabs.length + timeCols.length;
-
+  const isMaster = gLabs.length > 1;
   const today = new Date().toLocaleDateString('en-GB').replace(/\//g, '-');
   const totals = {};
   timeCols.forEach(tc => totals[tc.key] = 0);
 
-  let tbody = '';
-  keys.forEach(k => {
+  const displayTitle = isMaster ? 'MASTER HIERARCHICAL' : (gLabs[0] || 'REGION').toUpperCase();
+
+  if (!isMaster) {
+      // SIMPLE FORMAT AS PER SCREENSHOT (For Region Wise, Area Wise, etc.)
+      let rowsBody = '';
+      keys.forEach((k, idx) => {
+        const grpRows = map[k];
+        const vCols = timeCols.map(tc => {
+            const v = mIdDistinctCount(grpRows, tc);
+            totals[tc.key] += (v || 0);
+            return `<td style="border:1px solid #000; text-align:center; padding:10px; font-weight:900;">${v || '-'}</td>`;
+        }).join('');
+        rowsBody += `
+          <tr style="background:#fff;">
+            <td style="border:1px solid #000; padding:10px; font-weight:900; text-align:left;">${k.toUpperCase()}</td>
+            ${vCols}
+          </tr>`;
+      });
+
+      return `
+        <table class="pivot-table" style="width:100%; border-collapse:collapse; font-family:'Times New Roman', serif; border:1px solid #000;">
+          <thead>
+            <tr style="background:#c6e0b4;">
+              <th colspan="${timeCols.length + 1}" style="padding:15px; font-size:1.6rem; border:1px solid #000; color:#000;">${displayTitle} WISE STANDING MEETING UPDATE ${today}</th>
+            </tr>
+            <tr style="background:#fff;">
+              <th style="color:#FF0000; text-align:left; padding:10px; border:1px solid #000;">${(gLabs[0] || 'NAME').toUpperCase()}</th>
+              ${timeCols.map(tc => `<th style="color:#FF0000; padding:10px; border:1px solid #000;">${tc.label}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsBody}
+            <tr style="background:#ffff00; font-weight:900;">
+               <td style="border:1px solid #000; padding:10px; background:#ffff00; text-align:left;">Total</td>
+               ${timeCols.map(tc => `<td style="border:1px solid #000; text-align:center; padding:10px; color:#FF0000; background:#ffff00;">${Math.round(totals[tc.key]) || '-'}</td>`).join('')}
+            </tr>
+          </tbody>
+        </table>`;
+  }
+
+  // MASTER VIEW: SEGMENTED REGIONS WITH INDIVIDUAL DOWNLOADS
+  let masterHtml = '';
+  let currentRegion = '';
+  let regTotals = {};
+  timeCols.forEach(tc => regTotals[tc.key] = 0);
+  let currentRegionBody = '';
+
+  keys.forEach((k, idx) => {
     const grpRows = map[k];
     const kParts = k.split(' | ');
-    let labelCells = '';
-    kParts.forEach(val => {
-      labelCells += `<td style="font-weight:800;color:#000;text-align:left;min-width:140px;">${val}</td>`;
-    });
+    const regionName = kParts[0];
 
-    let dataCells = '';
-    timeCols.forEach(tc => {
-      const v = mIdDistinctCount(grpRows, tc);
-      totals[tc.key] += v;
-      const isGrand = tc.label === 'Grand Total';
-      const style = isGrand ? 'font-weight:800;background:#f0fdf4;' : '';
-      dataCells += `<td style="${style}">${v || 0}</td>`;
-    });
+    if (currentRegion !== '' && regionName !== currentRegion) {
+        // Finalize previous Region table
+        const safeId = `master-reg-${idx}`;
+        masterHtml += `
+          <div style="position:relative; margin-bottom:50px;">
+            <button onclick="captureSpecificRegion('${safeId}', '${currentRegion}')" 
+              style="position:absolute; right:10px; top:-35px; background:#ef4444; color:#fff; border:1px solid #000; padding:4px 12px; border-radius:3px; font-weight:700; cursor:pointer; font-size:12px;">
+              Download ${currentRegion}
+            </button>
+            <table id="${safeId}" style="width:100%; border-collapse:collapse; font-family:'Times New Roman', serif; border:1px solid #000; background:#fff;">
+               <thead>
+                  <tr style="background:#fef08a; border:1px solid #000;">
+                    <th colspan="${timeCols.length + 1}" style="text-align:left; padding:10px; font-size:1.4rem; color:#000; border:1px solid #000;">${currentRegion.toUpperCase()}</th>
+                  </tr>
+                  <tr style="background:#fff; border:1px solid #000;">
+                    <th style="color:#FF0000; text-align:left; border:1px solid #000; padding:8px; font-weight:900;">BRANCH NAME</th>
+                    ${timeCols.map(tc => `<th style="color:#FF0000; border:1px solid #000; padding:8px; font-weight:900;">${tc.label}</th>`).join('')}
+                  </tr>
+               </thead>
+               <tbody>
+                  ${currentRegionBody}
+                  <tr style="background:#ffff00; font-weight:900;">
+                    <td style="border:1px solid #000; padding:12px; color:#000; background:#ffff00; text-align:left;">${currentRegion} GRAND TOTAL</td>
+                    ${timeCols.map(tc => `<td style="border:1px solid #000; text-align:center; padding:12px; color:#FF0000;">${regTotals[tc.key] || '-'}</td>`).join('')}
+                  </tr>
+               </tbody>
+            </table>
+          </div>`;
+        timeCols.forEach(tc => regTotals[tc.key] = 0);
+        currentRegionBody = '';
+    }
 
-    tbody += `<tr>${labelCells}${dataCells}</tr>`;
+    currentRegion = regionName;
+    const branchName = kParts[kParts.length - 1];
+    const dataCells = timeCols.map(tc => {
+        const v = mIdDistinctCount(grpRows, tc);
+        totals[tc.key] += (v || 0);
+        regTotals[tc.key] += (v || 0);
+        return `<td style="border:1px solid #000; text-align:center; padding:10px; font-weight:900; color:#000;">${v || '-'}</td>`;
+    }).join('');
+    
+    currentRegionBody += `<tr><td style="border:1px solid #000; padding:10px; font-weight:900; text-align:left; color:#000;">${branchName}</td>${dataCells}</tr>`;
+
+    if (idx === keys.length - 1) {
+        // Final Region in Master
+        const safeId = `master-reg-final`;
+        masterHtml += `
+          <div style="position:relative; margin-bottom:50px;">
+            <button onclick="captureSpecificRegion('${safeId}', '${currentRegion}')" 
+              style="position:absolute; right:10px; top:-35px; background:#ef4444; color:#fff; border:1px solid #000; padding:4px 12px; border-radius:3px; font-weight:700; cursor:pointer; font-size:12px;">
+              Download ${currentRegion}
+            </button>
+            <table id="${safeId}" style="width:100%; border-collapse:collapse; font-family:'Times New Roman', serif; border:1px solid #000; background:#fff;">
+               <thead>
+                  <tr style="background:#fef08a; border:1px solid #000;">
+                    <th colspan="${timeCols.length + 1}" style="text-align:left; padding:10px; font-size:1.4rem; color:#000; border:1px solid #000;">${currentRegion.toUpperCase()}</th>
+                  </tr>
+                  <tr style="background:#fff; border:1px solid #000;">
+                    <th style="color:#FF0000; text-align:left; border:1px solid #000; padding:8px; font-weight:900;">BRANCH NAME</th>
+                    ${timeCols.map(tc => `<th style="color:#FF0000; border:1px solid #000; padding:8px; font-weight:900;">${tc.label}</th>`).join('')}
+                  </tr>
+               </thead>
+               <tbody>
+                  ${currentRegionBody}
+                  <tr style="background:#ffff00; font-weight:900;">
+                    <td style="border:1px solid #000; padding:12px; color:#000; background:#ffff00; text-align:left;">${currentRegion} GRAND TOTAL</td>
+                    ${timeCols.map(tc => `<td style="border:1px solid #000; text-align:center; padding:12px; color:#FF0000;">${regTotals[tc.key] || '-'}</td>`).join('')}
+                  </tr>
+               </tbody>
+            </table>
+          </div>`;
+    }
   });
 
-  const totalsCells = timeCols.map(tc =>
-    `<td style="font-weight:700;">${Math.round(totals[tc.key])}</td>`
-  ).join('');
 
   return `
-    <table class="pivot-table" id="meetingPivotTable">
-      <thead>
-        <tr class="header-main" style="background:#00ff00;color:#000;">
-          <th colspan="${colSpan}">Meeting Report — Hierarchical Summary &nbsp;&nbsp; ${today}</th>
-        </tr>
-        <tr class="header-sub">
-          ${gLabs.map(l => `<th style="text-align:left;">${l}</th>`).join('')}
-          ${timeCols.map(tc => `<th>${tc.label}</th>`).join('')}
-        </tr>
-      </thead>
-      <tbody>
-        ${tbody}
-        <tr style="background:#f0fdf4;">
-          <td colspan="${gLabs.length}" style="font-weight:700;text-align:center;">Column Grand Total</td>
-          ${totalsCells}
-        </tr>
-      </tbody>
-    </table>`;
+    <div style="background:#fff; padding:10px; font-family:'Times New Roman', serif;">
+      <!-- CLEAN MAIN HEADER -->
+      <div style="background:#c6e0b4; border:1px solid #000; padding:12px; margin-bottom:30px; text-align:center;">
+        <h2 style="margin:0; font-size:1.5rem; color:#000; font-weight:900; text-transform:uppercase;">
+          ${displayTitle} WISE STANDING MEETING UPDATE ${today}
+        </h2>
+      </div>
+
+      ${masterHtml}
+
+      <!-- CLEAN OVERALL TOTAL SECTION -->
+      <div id="master-overall-grand-row-outer" style="position:relative; margin-top:50px;">
+         <button onclick="captureSpecificRegion('master-overall-grand-row-area', 'OVERALL_GRAND_TOTAL')" 
+              style="position:absolute; right:10px; top:-35px; background:#ef4444; color:#fff; border:1px solid #000; padding:4px 12px; border-radius:3px; font-size:0.85rem; font-weight:700; cursor:pointer;">
+              Download Overall Total Image
+         </button>
+         <div id="master-overall-grand-row-area" style="background:#ffff00; border:1px solid #000; padding:15px;">
+            <table style="width:100%; border-collapse:collapse;">
+              <tr style="font-weight:900; color:#FF0000;">
+                <td style="padding:5px; font-size:1.4rem; color:#000; background:#ffff00; text-align:left; border:1px solid #000;">GRAND TOTAL (OVERALL)</td>
+                ${timeCols.map(tc => `<td style="text-align:center; padding:5px; font-size:1.4rem;">${Math.round(totals[tc.key]) || '-'}</td>`).join('')}
+              </tr>
+            </table>
+         </div>
+      </div>
+    </div>`;
 }
+
 
 // ── Three-tab renderer ────────────────────
 window.renderMeetingTabs = function (activeTab) {
@@ -1265,28 +1332,26 @@ window.renderMeetingTabs = function (activeTab) {
   // Define tabs
   const allTabs = [];
 
-  // Master hierarchical view in specific user order: DIVISION., AREA, REGION, Work Location
-  if (mCols.division || mCols.area || mCols.region || mCols.workLoc) {
+  // Master hierarchical view: only Region and Branch as requested
+  if (mCols.region || mCols.workLoc) {
     const masterCols = [];
     const masterLabs = [];
-    if (mCols.division) { masterCols.push(mCols.division); masterLabs.push('DIVISION.'); }
-    if (mCols.area) { masterCols.push(mCols.area); masterLabs.push('AREA'); }
     if (mCols.region) { masterCols.push(mCols.region); masterLabs.push('REGION'); }
-    if (mCols.workLoc) { masterCols.push(mCols.workLoc); masterLabs.push('Work Location'); }
+    if (mCols.workLoc) { masterCols.push(mCols.workLoc); masterLabs.push('BRANCH'); }
 
     allTabs.push({
       id: 'master',
-      label: '🗺️ Master View',
+      label: 'Master View',
       cols: masterCols,
       labs: masterLabs
     });
   }
 
   // Individual tabs
-  if (mCols.region) allTabs.push({ id: 'region', label: '📍 Region Wise', cols: [mCols.region], labs: ['REGION'] });
-  if (mCols.area) allTabs.push({ id: 'area', label: '🏢 Area Wise', cols: [mCols.area], labs: ['AREA'] });
-  if (mCols.division) allTabs.push({ id: 'division', label: '📊 Division Wise', cols: [mCols.division], labs: ['DIVISION.'] });
-  if (mCols.workLoc) allTabs.push({ id: 'workloc', label: '📌 Work Location Wise', cols: [mCols.workLoc], labs: ['Work Location'] });
+  if (mCols.region) allTabs.push({ id: 'region', label: 'Region Wise', cols: [mCols.region], labs: ['REGION'] });
+  if (mCols.area) allTabs.push({ id: 'area', label: 'Area Wise', cols: [mCols.area], labs: ['AREA'] });
+  if (mCols.division) allTabs.push({ id: 'division', label: 'Division Wise', cols: [mCols.division], labs: ['DIVISION.'] });
+  if (mCols.workLoc) allTabs.push({ id: 'workloc', label: 'Branch Wise', cols: [mCols.workLoc], labs: ['BRANCH'] });
 
   if (!allTabs.length) {
     report.innerHTML = '<p style="color:#ef4444;padding:1rem;">Could not detect Region/Area/Work Location columns in this file.</p>';
@@ -1356,13 +1421,7 @@ function transformMeetingUrl(url) {
 // Extracts direct S3 image URLs from Trackwick viewers via proxy networks
 
 async function checkLocalProxy() {
-  try {
-    const controller = new AbortController();
-    const t = setTimeout(() => controller.abort(), 2500);
-    const resp = await fetch('/health', { signal: controller.signal });
-    clearTimeout(t);
-    return resp.ok;
-  } catch(e) { return false; }
+  return false;
 }
 
 // --- SIMPLIFIED DASHBOARD MOD - STANDALONE ONLY ---
@@ -1394,6 +1453,32 @@ function createPhotoCard(item) {
   return card;
 }
 
+window.captureSpecificRegion = function(id, name) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const today = new Date().toLocaleDateString('en-GB').replace(/\//g, '-');
+  const filename = `${name}_REPORT_${today}.png`.toUpperCase().replace(/\s+/g, '_');
+  
+  html2canvas(el, {
+    scale: 3,
+    backgroundColor: "#ffffff",
+    logging: false,
+    useCORS: true,
+    onclone: (clonedDoc) => {
+       const cel = clonedDoc.getElementById(id);
+       if (cel) {
+          cel.style.padding = "20px";
+          cel.style.background = "#ffffff";
+          cel.style.border = "4px solid #000";
+       }
+    }
+  }).then(canvas => {
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+};
 
 // Cinematic Overlay Global JS
 window.openLargePreview = function (url, loc, time) {
@@ -1534,10 +1619,7 @@ function renderMeetingPhotoGallery(tabObj, rows) {
             const absCount = mCols.absent ? parseInt(row[mCols.absent]) || 0 : 0;
             const absBadge = absCount > 0 ? `<span style="color:#ef4444; font-size:0.75rem; font-weight:800; margin-left:6px; background:#fee2e2; padding:2px 6px; border-radius:10px;">Leave=${absCount}</span>` : '';
 
-            // If it's a direct image URL, route it entirely through our Option 1 Server to guarantee bypass!
-            const finalImageSrc = (isValidUrl && !isTrackwickViewer) 
-                ? `http://localhost:3000/image-proxy?url=${encodeURIComponent(originalPhoto)}`
-                : originalPhoto;
+            const finalImageSrc = originalPhoto;
 
             const currentIdx = cardIndex++;
 
@@ -1711,21 +1793,40 @@ document.getElementById('meetingDownloadImgBtn').addEventListener('click', () =>
   const el = document.getElementById('meetingPivotCaptureArea');
   if (!el) return;
 
-  const cells = el.querySelectorAll('td, th');
-  cells.forEach(c => {
-    c.dataset.oc = c.style.color;
-    c.style.color = '#000000';
-    c.style.fontWeight = c.tagName === 'TH' ? '700' : '600';
-    c.style.textShadow = '0 0 0.3px #000';
+  html2canvas(el, { 
+    scale: 4, 
+    backgroundColor: '#ffffff', 
+    useCORS: true, 
+    logging: false,
+    onclone: (clonedDoc) => {
+      const tbl = clonedDoc.querySelector('table');
+      if (tbl) {
+        tbl.style.border = '2px solid #000';
+        tbl.style.fontFamily = "'Times New Roman', serif";
+        const ths = tbl.querySelectorAll('th');
+        const tds = tbl.querySelectorAll('td');
+        ths.forEach(h => {
+          h.style.border = '2px solid #000';
+          h.style.fontSize = h.getAttribute('colspan') ? '2.2rem' : '1.3rem';
+          h.style.padding = '15px';
+          h.style.textShadow = '0.4px 0.4px 0px #000';
+        });
+          tds.forEach(d => {
+            d.style.border = '2px solid #000';
+            d.style.fontSize = (d.innerText.includes('Total')) ? '1.5rem' : '1.3rem';
+            d.style.padding = '12px';
+            // High-visibility color framing for downloads
+            if (d.innerText.includes('Total')) d.style.background = '#ffff00';
+            if (d.getAttribute('colspan') && !d.innerText.includes('Total')) d.style.background = '#fef08a';
+          });
+      }
+    }
+  }).then(canvas => {
+    const lnk = document.createElement('a');
+    lnk.download = meetingFileName.replace(/\.[^/.]+$/, '') + '_meeting.png';
+    lnk.href = canvas.toDataURL('image/png', 1.0);
+    lnk.click();
   });
-  html2canvas(el, { scale: 3, backgroundColor: '#ffffff', useCORS: true, logging: false })
-    .then(canvas => {
-      cells.forEach(c => { c.style.color = c.dataset.oc || ''; c.style.textShadow = ''; delete c.dataset.oc; });
-      const lnk = document.createElement('a');
-      lnk.download = meetingFileName.replace(/\.[^/.]+$/, '') + '_meeting.png';
-      lnk.href = canvas.toDataURL('image/png');
-      lnk.click();
-    });
 });
 
 // ── Debug Console Toggle ──────────────────
@@ -1751,5 +1852,6 @@ document.getElementById('meetingResetBtn').addEventListener('click', () => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
   });
-  if (meetingUploadArea) meetingUploadArea.style.display = 'block';
+  const upArea = document.getElementById('meetingUploadArea');
+  if (upArea) upArea.style.display = 'block';
 });
