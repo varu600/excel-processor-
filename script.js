@@ -2,7 +2,7 @@
 // SECTION NAVIGATION
 // ══════════════════════════════════════════
 function showSection(name) {
-  const sections = ['landingSection', 'attendanceSection', 'meetingSection'];
+  const sections = ['landingSection', 'attendanceSection', 'meetingSection', 'dpdSection', 'ftopSection'];
   sections.forEach(s => {
     const el = document.getElementById(s);
     if (el) el.style.display = 'none';
@@ -440,39 +440,39 @@ function generatePivotTable(data) {
   let p_notMarked = t_total ? Math.round((t_notMarked / t_total) * 100) : 0;
 
   const html = `
-    <table class="pivot-table" style="background:#fff; border:1px solid #000; color:#000; font-family:'Times New Roman', serif; border-collapse:collapse; width:auto; margin:0 auto;">
+    <table class="pivot-table" style="background:#fff; border:1px solid #000; color:#000; font-family:'Calibri', 'Arial', sans-serif; border-collapse:collapse; width:auto; margin:0 auto; box-shadow: none;">
       <thead>
-        <tr style="background:#c6e0b4; color:#000; border:1px solid #000;">
-          <th colspan="6" style="padding:12px; font-size:1.4rem; font-weight:900; text-transform:uppercase; border:1px solid #000;">Daily Attendance report</th>
-          <th style="padding:12px; font-size:1.1rem; font-weight:900; border:1px solid #000;">${reportDate}</th>
+        <tr style="background:#00FF00; color:#000; border:1px solid #000;">
+          <th colspan="6" style="padding:15px; font-size:1.6rem; font-weight:700; border:1px solid #000; text-align: center;">Daily Attendance report</th>
+          <th style="padding:15px; font-size:1.2rem; font-weight:700; border:1px solid #000; text-align: center;">${reportDate}</th>
         </tr>
-        <tr style="background:#fff; color:#FF0000; border:1px solid #000;">
-          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">Sl. No.</th>
-          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; text-align:left; font-weight:900;">Region Name</th>
-          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">Total Staff</th>
-          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">< 7.30 AM</th>
-          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">7.30 AM TO 8.30 AM</th>
-          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">> 8.30 AM</th>
-          <th style="border:1px solid #000; padding:10px; text-transform:uppercase; font-weight:900;">Not Marked</th>
+        <tr style="background:#40C4D0; color:#000; border:1px solid #000;">
+          <th style="border:1px solid #000; padding:12px 15px; font-weight:700; width: 60px;">Sl. No.</th>
+          <th style="border:1px solid #000; padding:12px 15px; text-align:left; font-weight:700; min-width: 150px;">Region</th>
+          <th style="border:1px solid #000; padding:12px 15px; font-weight:700;">Total Staffs</th>
+          <th style="border:1px solid #000; padding:12px 15px; font-weight:700;">Marked before 7:30 am</th>
+          <th style="border:1px solid #000; padding:12px 15px; font-weight:700;">Marked 7:30 to 8:30am</th>
+          <th style="border:1px solid #000; padding:12px 15px; font-weight:700;">Marked Above 8:30am</th>
+          <th style="border:1px solid #000; padding:12px 15px; font-weight:700;">Not been marked till 9:45 AM.</th>
         </tr>
       </thead>
       <tbody>
         ${tbody}
-        <tr style="background:#ffff00; font-weight:900; color:#000;">
-          <td colspan="2" style="border:1px solid #000; padding:10px; text-align:left; font-size:1.1rem; background:#ffff00;">Total</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_total}</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_b730}</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_a730_b830}</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_a830}</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${t_notMarked}</td>
+        <tr style="background:#fff; font-weight:700; color:#000;">
+          <td colspan="2" style="border:1px solid #000; padding:12px; text-align:center;">Total</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${t_total}</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${t_b730}</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${t_a730_b830}</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${t_a830}</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${t_notMarked}</td>
         </tr>
-        <tr style="background:#ffff00; font-weight:900; color:#000;">
-          <td colspan="2" style="border:1px solid #000; padding:10px; text-align:left; font-size:1.1rem;">Percentage (%)</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">100%</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${p_b730}%</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${p_a730_b830}%</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${p_a830}%</td>
-          <td style="border:1px solid #000; padding:10px; text-align:center; font-size:1.1rem;">${p_notMarked}%</td>
+        <tr style="background:#fff; font-weight:700; color:#000;">
+          <td colspan="2" style="border:1px solid #000; padding:12px; text-align:center;">%</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;"></td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${p_b730}%</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${p_a730_b830}%</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${p_a830}%</td>
+          <td style="border:1px solid #000; padding:12px; text-align:center;">${p_notMarked}%</td>
         </tr>
       </tbody>
     </table>
@@ -507,16 +507,14 @@ document.getElementById('downloadImgBtn').addEventListener('click', () => {
         const ths = tbl.querySelectorAll('th');
         const tds = tbl.querySelectorAll('td');
         ths.forEach(h => {
-          h.style.border = '2px solid #000';
-          h.style.fontSize = h.getAttribute('colspan') ? '2.2rem' : '1.3rem';
+          h.style.border = '1px solid #000';
+          h.style.fontSize = h.getAttribute('colspan') ? '2rem' : '1.1rem';
           h.style.padding = '15px';
-          h.style.textShadow = '0.4px 0.4px 0px ' + (h.style.color === 'rgb(255, 0, 0)' ? '#FF0000' : '#000');
         });
         tds.forEach(d => {
-          d.style.border = '2px solid #000';
-          d.style.fontSize = (d.getAttribute('colspan') || d.innerText.includes('Total')) ? '1.5rem' : '1.3rem';
+          d.style.border = '1px solid #000';
+          d.style.fontSize = '1.1rem';
           d.style.padding = '12px';
-          d.style.textShadow = '0.4px 0.4px 0px ' + (d.style.color === 'rgb(255, 0, 0)' ? '#FF0000' : '#000');
         });
       }
     }
@@ -672,41 +670,41 @@ window.renderSlide = function (locName) {
   let dynamicHeader = locName === 'All' ? `${window.currentRegion} Region - Locational Summary` : `${locName} Branch - Live Dashboard`;
 
   const html = `
-     <table class="pivot-table">
+     <table class="pivot-table" style="background:#fff; border:1px solid #000; color:#000; font-family:'Calibri', 'Arial', sans-serif; border-collapse:collapse; width:100%; margin:0 auto;">
        <thead>
-         <tr class="header-main">
-           <th colspan="7">Work Location Stats</th>
-           <th>${reportDate}</th>
+         <tr class="header-main" style="background:#00FF00; color:#000;">
+           <th colspan="7" style="border:1px solid #000; padding:12px;">Work Location Stats</th>
+           <th style="border:1px solid #000; padding:12px;">${reportDate}</th>
          </tr>
-         <tr class="header-sub">
-           <th>Sl. No.</th>
-           <th>Location Name</th>
-           <th>Total Staffs</th>
-           <th>Marked before 7:30 am</th>
-           <th>Marked 7:30 to 8:30am</th>
-           <th>Marked Above 8:30am</th>
-           <th>Absent</th>
-           <th>Leave / WO</th>
+         <tr class="header-sub" style="background:#40C4D0; color:#000;">
+           <th style="border:1px solid #000; padding:10px;">Sl. No.</th>
+           <th style="border:1px solid #000; padding:10px; text-align:left;">Location Name</th>
+           <th style="border:1px solid #000; padding:10px;">Total Staffs</th>
+           <th style="border:1px solid #000; padding:10px;">Marked before 7:30 am</th>
+           <th style="border:1px solid #000; padding:10px;">Marked 7:30 to 8:30am</th>
+           <th style="border:1px solid #000; padding:10px;">Marked Above 8:30am</th>
+           <th style="border:1px solid #000; padding:10px;">Absent</th>
+           <th style="border:1px solid #000; padding:10px;">Leave / WO</th>
          </tr>
        </thead>
        <tbody>
          ${tbody}
-         <tr class="footer-row" style="background:#ffff00 !important; color:#000;">
-           <td colspan="2" style="background:#ffff00; color:#000;">GRAND TOTAL</td>
-           <td style="background:#ffff00; color:#000;">${t_total}</td>
-           <td style="background:#ffff00; color:#000;">${t_b730}</td>
-           <td style="background:#ffff00; color:#000;">${t_a730_b830}</td>
-           <td style="background:#ffff00; color:#000;">${t_a830}</td>
-           <td style="background:#ffff00; color:#000;">${t_notMarked}</td>
-           <td style="background:#ffff00; color:#000;">${t_leave}</td>
+         <tr class="footer-row" style="background:#fff !important; color:#000; font-weight:700;">
+           <td colspan="2" style="border:1px solid #000; padding:10px; text-align:center;">GRAND TOTAL</td>
+           <td style="border:1px solid #000; padding:10px;">${t_total}</td>
+           <td style="border:1px solid #000; padding:10px;">${t_b730}</td>
+           <td style="border:1px solid #000; padding:10px;">${t_a730_b830}</td>
+           <td style="border:1px solid #000; padding:10px;">${t_a830}</td>
+           <td style="border:1px solid #000; padding:10px;">${t_notMarked}</td>
+           <td style="border:1px solid #000; padding:10px;">${t_leave}</td>
          </tr>
-         <tr class="footer-row-percent">
-           <td colspan="3">%</td>
-           <td>${p_b730}%</td>
-           <td>${p_a730_b830}%</td>
-           <td>${p_a830}%</td>
-           <td>${p_notMarked}%</td>
-           <td>${p_leave}%</td>
+         <tr class="footer-row-percent" style="background:#fff !important; color:#000; font-weight:700;">
+           <td colspan="3" style="border:1px solid #000; padding:10px; text-align:center;">%</td>
+           <td style="border:1px solid #000; padding:10px;">${p_b730}%</td>
+           <td style="border:1px solid #000; padding:10px;">${p_a730_b830}%</td>
+           <td style="border:1px solid #000; padding:10px;">${p_a830}%</td>
+           <td style="border:1px solid #000; padding:10px;">${p_notMarked}%</td>
+           <td style="border:1px solid #000; padding:10px;">${p_leave}%</td>
          </tr>
        </tbody>
      </table>
@@ -1855,3 +1853,847 @@ document.getElementById('meetingResetBtn').addEventListener('click', () => {
   const upArea = document.getElementById('meetingUploadArea');
   if (upArea) upArea.style.display = 'block';
 });
+
+// ══════════════════════════════════════════
+// DPD VISIT MODULE
+// ══════════════════════════════════════════
+
+let dpdData = {
+    trackoap: null,
+    par: null,
+    collection: null
+};
+
+// Re-register listeners
+document.getElementById('trackoapFileInput')?.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) handleDpdFile(e.target.files[0], 'trackoap');
+});
+
+document.getElementById('parFileInput')?.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) handleDpdFile(e.target.files[0], 'par');
+});
+
+document.getElementById('collectionFileInput')?.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) handleDpdFile(e.target.files[0], 'collection');
+});
+
+function handleDpdFile(file, type) {
+    const statusEl = document.getElementById(`${type}Status`);
+    if (statusEl) {
+        statusEl.className = 'dpd-status status-pending';
+        statusEl.textContent = `Processing ${file.name}...`;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        setTimeout(() => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                
+                // Scan to find the actual header row (handling empty rows at top)
+                const rawData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                let headerIdx = 0;
+                for (let i = 0; i < Math.min(rawData.length, 20); i++) {
+                    const row = rawData[i];
+                    if (!row || row.length === 0) continue;
+                    const rowStr = row.join("").toLowerCase();
+                    if (rowStr.includes("remote") || rowStr.includes("account") || rowStr.includes("member") || rowStr.includes("id") || rowStr.includes("labels") || rowStr.includes("dpd") || rowStr.includes("sumof")) {
+                        headerIdx = i;
+                        break;
+                    }
+                }
+
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { range: headerIdx, raw: false, defval: "" });
+                
+                dpdData[type] = jsonData;
+                
+                if (statusEl) {
+                    statusEl.className = 'dpd-status status-success';
+                    statusEl.textContent = `✅ ${type.toUpperCase()} Loaded (${jsonData.length} rows)`;
+                }
+
+                // Check if we can show the action button
+                if (dpdData.trackoap && dpdData.par) {
+                    document.getElementById('dpdActionContainer').style.display = 'block';
+                }
+                
+            } catch (err) {
+                console.error(`[DPD] Error processing ${type}:`, err);
+                if (statusEl) {
+                    statusEl.className = 'dpd-status status-error';
+                    statusEl.textContent = `❌ Error: ${err.message}`;
+                }
+            }
+        }, 100);
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+document.getElementById('generateDpdReportBtn')?.addEventListener('click', generateCombinedDpdReport);
+
+// --- Global Fuzzy ID Normalizer ---
+const normalize = (val) => String(val || "").toLowerCase().replace(/[^a-z0-9]/g, "").replace(/^0+/, "");
+
+function generateCombinedDpdReport() {
+    if (!dpdData.trackoap || !dpdData.par) {
+        alert("Please upload at least TrackOAP and PAR Report files.");
+        return;
+    }
+
+    const outputContainer = document.getElementById('dpdOutputContainer');
+    outputContainer.innerHTML = '<div class="spinner"></div><p style="text-align:center;">Analyzing cross-file data and generating pivot tables...</p>';
+    outputContainer.style.display = 'block';
+
+    setTimeout(() => {
+        try {
+            const combinedData = [];
+            let parMatches = 0;
+            let collMatches = 0;
+
+            const trackCols = findDpdColumns(dpdData.trackoap[0]);
+            const trackSampleIds = dpdData.trackoap.slice(0, 5).map(r => normalize(r[trackCols.remoteField]));
+            
+            // Map PAR data by Account ID
+            const parMap = new Map();
+            const parCols = findDpdColumns(dpdData.par[0]);
+            dpdData.par.forEach(row => {
+                const id = normalize(row[parCols.accountId]);
+                if (id) parMap.set(id, row);
+            });
+
+            // Map Collection data (Summing amounts like a pivot table)
+            const collMap = new Map();
+            let collIdCol = "";
+            let collAmtCol = "";
+            if (dpdData.collection) {
+                dpdData.collection.forEach(row => {
+                    let idCandidate = "";
+                    let amtCandidate = 0;
+                    
+                    Object.entries(row).forEach(([k, v]) => {
+                        const sk = k.toLowerCase().replace(/[\s-_]/g, "");
+                        
+                        // ID Detection: Prioritize columns that sound like a unique ID
+                        // and EXCLUDE descriptive columns like "Type", "Status", "Name"
+                        const isIdMatch = sk.includes("rowlabels") || 
+                                          ((sk.includes("account") || sk.includes("remote") || sk.includes("member") || sk.includes("loan") || sk === "id") && 
+                                           !sk.includes("type") && !sk.includes("status") && !sk.includes("name") && !sk.includes("date"));
+                        
+                        if (!idCandidate && isIdMatch) {
+                            const val = normalize(v);
+                            if (val) {
+                                idCandidate = val;
+                                collIdCol = k;
+                            }
+                        }
+                        
+                        // Amount Detection: Look for Total, Amount, or Sum
+                        const isAmtMatch = (sk.includes("sumof") || sk.includes("collectiontotal") || sk.includes("total") || sk.includes("amount")) && 
+                                           !sk.includes("count") && !sk.includes("id");
+                                           
+                        if (isAmtMatch) {
+                            // If we already found "collectiontotal", don't overwrite it with a generic "total"
+                            const currentSk = (collAmtCol || "").toLowerCase().replace(/[^a-z]/g, "");
+                            const isExactMatch = sk === "collectiontotal" || sk.includes("sumofcollectiontotal");
+                            
+                            if (isExactMatch || !currentSk.includes("collection")) {
+                                const cleanVal = String(v || "0").replace(/,/g, "").trim();
+                                const val = parseFloat(cleanVal);
+                                if (!isNaN(val)) {
+                                    amtCandidate = val;
+                                    collAmtCol = k;
+                                }
+                            }
+                        }
+                    });
+                    
+                    if (idCandidate) {
+                        collMap.set(idCandidate, (collMap.get(idCandidate) || 0) + amtCandidate);
+                    }
+                });
+            }
+
+             const collSampleIds = Array.from(collMap.keys()).slice(0, 5);
+            
+            dpdData.trackoap.forEach(row => {
+                const remoteId = normalize(row[trackCols.remoteField]);
+                const parRow = parMap.get(remoteId);
+                const collAmt = collMap.get(remoteId) || 0;
+
+                if (parRow) parMatches++;
+                if (collAmt > 0) collMatches++;
+
+                const parColsFound = parRow ? findDpdColumns(parRow) : {};
+
+                // 1. DPD Day lookup
+                let dpdDay = "NPA";
+                let loanStatus = "Unknown";
+                if (parRow) {
+                    const rawDpd = parRow[parColsFound.dpdDay];
+                    const rawStatus = String(parRow[parColsFound.loanStatus] || "").toLowerCase();
+                    const dpdStr = String(rawDpd || "").toLowerCase();
+                    
+                    if (dpdStr.includes("active") || rawStatus.includes("active") || rawDpd === 0 || rawDpd === "0") {
+                        dpdDay = "Active Loan";
+                    } else if (dpdStr.includes("npa") || rawStatus.includes("npa")) {
+                        dpdDay = "NPA";
+                    } else if (rawDpd && !isNaN(parseFloat(rawDpd))) {
+                        dpdDay = "Active Loan"; 
+                    } else {
+                        dpdDay = "NPA";
+                    }
+                    loanStatus = parRow[parColsFound.loanStatus] || "Found";
+                }
+
+                // 2. Collection Amount (Already handled by VLOOKUP logic above)
+
+                combinedData.push({
+                    ...row,
+                    "DPD day": dpdDay,
+                    "Loan Status": loanStatus,
+                    "Collection amt": collAmt,
+                    "Region": row[trackCols.region] || "Unknown"
+                });
+            });
+
+            // Save for download
+            lastCollMap = collMap;
+
+            // Match Analysis
+            let analysisMsg = "";
+            if (collMap.size === 0) analysisMsg = "❌ No data found in Collection file. Check if columns are correct.";
+            else if (collMatches === 0) analysisMsg = "❌ Collection data loaded but ZERO IDs matched TrackOAP. Check the sample IDs below.";
+            else analysisMsg = `✅ Successfully matched ${collMatches} collection records.`;
+
+            // Collection Pivot Preview (First 10 rows)
+            const collPivotRows = Array.from(collMap.entries()).slice(0, 10).map(([id, amt]) => `
+                <tr>
+                    <td style="padding:4px 8px; border-bottom:1px solid #e2e8f0;">${id}</td>
+                    <td style="padding:4px 8px; border-bottom:1px solid #e2e8f0; text-align:right;">${amt.toLocaleString()}</td>
+                </tr>
+            `).join("");
+
+            // Inject Match Stats into the UI for user transparency
+            const statsHtml = `
+                <div style="background:#f8fafc; border:2px solid #e2e8f0; padding:1.5rem; border-radius:16px; margin-bottom:2rem; font-family:inherit;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                        <h3 style="margin:0; color:#334155;">📊 Data Integration Audit</h3>
+                        <button onclick="downloadCollectionPivot()" style="background:#0ea5e9; color:white; border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600;">
+                            📥 Download Collection Pivot (Excel)
+                        </button>
+                    </div>
+                    
+                    <div style="font-weight:700; margin-bottom:1rem; color:${collMatches > 0 ? '#10b981' : '#f43f5e'};">
+                        ${analysisMsg}
+                    </div>
+                    
+                    <div style="display:grid; grid-template-columns: 1.5fr 1fr; gap:1.5rem;">
+                        <!-- Stats Grid -->
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:1rem;">
+                            <div style="background:white; padding:1rem; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,0.05);">
+                                <div style="color:#64748b; font-size:0.75rem; text-transform:uppercase;">TrackOAP Rows</div>
+                                <div style="font-size:1.25rem; font-weight:800;">${dpdData.trackoap.length}</div>
+                            </div>
+                            <div style="background:white; padding:1rem; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid ${collMatches > 0 ? '#10b981' : '#f43f5e'};">
+                                <div style="color:#64748b; font-size:0.75rem; text-transform:uppercase;">Matches Found</div>
+                                <div style="font-size:1.25rem; font-weight:800; color:${collMatches > 0 ? '#10b981' : '#f43f5e'};">${collMatches}</div>
+                            </div>
+                        </div>
+
+                        <!-- Pivot Preview -->
+                        <div style="background:white; padding:1rem; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,0.05); font-size:0.75rem;">
+                            <strong style="display:block; margin-bottom:0.5rem; color:#475569;">Collection Pivot Preview (Internal)</strong>
+                            <table style="width:100%; border-collapse:collapse;">
+                                <thead>
+                                    <tr style="background:#f8fafc; text-align:left;">
+                                        <th style="padding:4px 8px; border-bottom:2px solid #e2e8f0;">Account ID</th>
+                                        <th style="padding:4px 8px; border-bottom:2px solid #e2e8f0; text-align:right;">Sum Amt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${collPivotRows || '<tr><td colspan="2" style="text-align:center; padding:1rem;">No data</td></tr>'}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top:1.5rem; display:grid; grid-template-columns: 1fr 1fr; gap:1rem; font-size:0.8rem;">
+                        <div style="background:#f1f5f9; padding:0.75rem; border-radius:8px; border:1px solid #e2e8f0;">
+                            <strong>TrackOAP IDs (Fuzzy Sample):</strong><br>
+                            <code style="color:#2563eb;">${trackSampleIds.join(", ") || "No IDs found"}</code>
+                        </div>
+                        <div style="background:#f1f5f9; padding:0.75rem; border-radius:8px; border:1px solid #e2e8f0;">
+                            <strong>Collection IDs (Fuzzy Sample):</strong><br>
+                            <code style="color:#db2777;">${collSampleIds.join(", ") || "No IDs found"}</code>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:1rem; font-size:0.8rem; color:#64748b;">
+                        • Using ID Column: <code style="color:#db2777;">${collIdCol}</code> | Amt Column: <code style="color:#db2777;">${collAmtCol}</code>
+                    </div>
+                </div>
+            `;
+            
+            renderDpdPivotTables(combinedData, statsHtml, trackCols);
+
+        } catch (err) {
+            console.error("Report Generation Error:", err);
+            outputContainer.innerHTML = `<div class="status-error" style="padding:1rem; background:rgba(244,63,94,0.1); border-radius:12px;">❌ Error generating report: ${err.message}</div>`;
+        }
+    }, 100);
+}
+
+function findDpdColumns(row) {
+    const cols = Object.keys(row);
+    const result = {
+        remoteField: "",
+        accountId: "",
+        dpdDay: "",
+        loanStatus: "",
+        collectionTotal: "",
+        region: ""
+    };
+
+    cols.forEach(c => {
+        const s = c.toLowerCase().replace(/[\s-_]/g, "");
+        if (s.includes("remotefield") || s.includes("accountid") || s === "id") {
+            if (!result.remoteField) result.remoteField = c;
+            if (!result.accountId) result.accountId = c;
+        }
+        if (s.includes("dpd") && (s.includes("day") || s.includes("aging"))) result.dpdDay = c;
+        if (s.includes("loanstatus") || s.includes("status")) result.loanStatus = c;
+        if (s.includes("collectiontotal") || s.includes("collectionamt") || s.includes("amount")) result.collectionTotal = c;
+        if (s === "region" || s === "branch" || s === "location") result.region = c;
+    });
+
+    // Fallbacks if mapping fails
+    if (!result.remoteField) result.remoteField = cols.find(c => c.includes("Remote")) || cols[0];
+    if (!result.dpdDay) result.dpdDay = cols.find(c => c.includes("DPD")) || "DPD day";
+    if (!result.region) result.region = cols.find(c => c.includes("Region")) || "Region";
+
+    return result;
+}
+
+function renderDpdPivotTables(data, statsHtml = "", trackCols) {
+    const outputContainer = document.getElementById('dpdOutputContainer');
+    outputContainer.innerHTML = statsHtml;
+
+    const activeData = data.filter(r => r["DPD day"] === "Active Loan");
+    const npaData = data.filter(r => r["DPD day"] === "NPA");
+
+    const activePivot = generatePivotHtml(activeData, "ACTIVE Loans Report", trackCols);
+    const npaPivot = generatePivotHtml(npaData, "NPA Loans Report", trackCols);
+    const allPivot = generatePivotHtml(data, "All Loans (Active + NPA) Summary", trackCols);
+
+    outputContainer.innerHTML = `
+        ${statsHtml}
+        <div style="display: flex; flex-direction: column; gap: 4rem;">
+            <div>${allPivot}</div>
+            <div>${activePivot}</div>
+            <div>${npaPivot}</div>
+        </div>
+        <div class="btn-container" style="margin-top: 3rem; display: flex; gap: 1rem; justify-content: center;">
+            <button onclick="downloadCollectionPivot()" class="download-btn" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">Download Collection Pivot (AccountID & Total)</button>
+            <button onclick="downloadDpdProcessedData()" class="download-btn">Download Full Processed Data (Excel)</button>
+        </div>
+    `;
+    
+    window.processedDpdData = data;
+}
+
+function generatePivotHtml(data, title, trackCols) {
+    const regions = [...new Set(data.map(r => r["Region"]))].sort();
+    const stats = {};
+
+    regions.forEach(reg => {
+        stats[reg] = { count: 0, collCount: 0, collSum: 0 };
+    });
+
+    data.forEach(r => {
+        const reg = r["Region"];
+        stats[reg].count++;
+        
+        const amt = parseFloat(r["Collection amt"]);
+        if (!isNaN(amt) && amt > 0) {
+            stats[reg].collCount++;
+            stats[reg].collSum += amt;
+        }
+    });
+
+    let rowsHtml = "";
+    let grandTotal = { count: 0, collCount: 0, collSum: 0 };
+
+    regions.forEach(reg => {
+        grandTotal.count += stats[reg].count;
+        grandTotal.collCount += stats[reg].collCount;
+        grandTotal.collSum += stats[reg].collSum;
+
+        rowsHtml += `
+            <tr>
+                <td style="text-align:left; border:1px solid #334155; padding:12px; font-weight:700;">${reg}</td>
+                <td style="text-align:center; border:1px solid #334155; padding:12px;">${stats[reg].count}</td>
+                <td style="text-align:center; border:1px solid #334155; padding:12px;">${stats[reg].collCount}</td>
+                <td style="text-align:right; border:1px solid #334155; padding:12px; font-weight:700;">${stats[reg].collSum.toLocaleString()}</td>
+            </tr>
+        `;
+    });
+
+    return `
+        <div class="pivot-wrapper" style="background: white; padding: 2rem; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h2 style="color: #db2777; margin-bottom: 1.5rem; text-align: center; font-weight: 800; border-bottom: 2px solid #fce7f3; padding-bottom: 0.5rem;">${title}</h2>
+            <table style="width: 100%; border-collapse: collapse; color: #1e293b; font-size: 0.95rem;">
+                <thead>
+                    <tr style="background: #f8fafc; border-bottom: 2px solid #334155;">
+                        <th style="padding: 12px; text-align: left; border: 1px solid #334155;">Region / Branch</th>
+                        <th style="padding: 12px; text-align: center; border: 1px solid #334155;">Total Count</th>
+                        <th style="padding: 12px; text-align: center; border: 1px solid #334155;">Collection Count</th>
+                        <th style="padding: 12px; text-align: right; border: 1px solid #334155;">Collection Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rowsHtml}
+                </tbody>
+                <tfoot>
+                    <tr style="background: #f1f5f9; font-weight: 800; border-top: 2px solid #334155;">
+                        <td style="padding: 12px; border: 1px solid #334155;">Grand Total</td>
+                        <td style="padding: 12px; text-align: center; border: 1px solid #334155;">${grandTotal.count}</td>
+                        <td style="padding: 12px; text-align: center; border: 1px solid #334155;">${grandTotal.collCount}</td>
+                        <td style="padding: 12px; text-align: right; border: 1px solid #334155; color: #db2777;">${grandTotal.collSum.toLocaleString()}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    `;
+}
+
+// Global reference for the pivot map to enable download
+let lastCollMap = new Map();
+
+function downloadCollectionPivot() {
+    if (!lastCollMap || lastCollMap.size === 0) {
+        alert("No collection pivot data available to download.");
+        return;
+    }
+
+    const data = Array.from(lastCollMap.entries()).map(([id, amt]) => ({
+        "AccountID": id,
+        "Collection Total": amt
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Collection Pivot");
+    XLSX.writeFile(wb, `Collection_Pivot_${Date.now()}.xlsx`);
+}
+
+function downloadDpdProcessedData() {
+    if (!window.processedDpdData) return;
+    const ws = XLSX.utils.json_to_sheet(window.processedDpdData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Combined Report");
+    XLSX.writeFile(wb, "DPD_Combined_Report_" + new Date().getTime() + ".xlsx");
+}
+
+// ══════════════════════════════════════════
+// FTOP REPORT MODULE
+// ══════════════════════════════════════════
+let ftopFilteredData = [];
+let ftopFileName = "";
+let ftopSelectedFile = null;
+let ftopActiveTab = "region"; // Default active pivot view
+
+const ftopUploadArea = document.getElementById('ftopUploadArea');
+const ftopFileInput = document.getElementById('ftopFileInput');
+const ftopStatusPanel = document.getElementById('ftopStatusPanel');
+const ftopStatusText = document.getElementById('ftopStatusText');
+
+ftopUploadArea.addEventListener('click', () => ftopFileInput.click());
+
+// Drag & drop
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev =>
+  ftopUploadArea.addEventListener(ev, preventDefaults, false));
+['dragenter', 'dragover'].forEach(ev =>
+  ftopUploadArea.addEventListener(ev, () => ftopUploadArea.classList.add('dragover'), false));
+['dragleave', 'drop'].forEach(ev =>
+  ftopUploadArea.addEventListener(ev, () => ftopUploadArea.classList.remove('dragover'), false));
+
+ftopUploadArea.addEventListener('drop', e => {
+  if (e.dataTransfer.files.length > 0) handleFtopFile(e.dataTransfer.files[0]);
+});
+ftopFileInput.addEventListener('change', e => {
+  if (e.target.files.length > 0) handleFtopFile(e.target.files[0]);
+});
+
+function handleFtopFile(file) {
+    ftopSelectedFile = file;
+    ftopFileName = file.name;
+    
+    // Show details selection form instead of immediate parsing
+    ftopUploadArea.style.display = 'none';
+    document.getElementById('ftopConfigForm').style.display = 'block';
+    
+    // Set default date input value to today
+    const dateInput = document.getElementById('ftopReportDate');
+    if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+    }
+    
+    ftopStatusPanel.style.display = 'none';
+    document.getElementById('ftopPivotContainer').style.display = 'none';
+}
+
+// Generate button handler
+document.getElementById('ftopGenerateBtn')?.addEventListener('click', () => {
+    if (!ftopSelectedFile) {
+        alert("Please select a file first.");
+        return;
+    }
+    
+    // Hide form, show status panel/spinner
+    document.getElementById('ftopConfigForm').style.display = 'none';
+    ftopStatusPanel.style.display = 'block';
+    ftopStatusText.textContent = 'Reading FTOP file...';
+    ftopStatusText.style.color = 'var(--text-main)';
+    document.querySelector('.ftop-spinner').style.display = 'block';
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        setTimeout(() => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                processFtopWorkbook(workbook);
+            } catch (err) {
+                console.error("[FTOP] Error processing file:", err);
+                ftopStatusText.textContent = 'Error: ' + err.message;
+                ftopStatusText.style.color = '#ef4444';
+                document.querySelector('.ftop-spinner').style.display = 'none';
+            }
+        }, 100);
+    };
+    reader.readAsArrayBuffer(ftopSelectedFile);
+});
+
+function processFtopWorkbook(workbook) {
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const rawData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+
+    // Find the header row
+    let headerIdx = -1;
+    for (let i = 0; i < Math.min(rawData.length, 30); i++) {
+        const row = rawData[i];
+        if (!row || row.length === 0) continue;
+        const rowStr = row.map(cell => String(cell).toLowerCase().replace(/[\s-_]/g, '')).join(" ");
+        
+        // Let's see if this row contains status/payment status keywords
+        if (rowStr.includes("status") && (rowStr.includes("payment") || rowStr.includes("region") || rowStr.includes("worklocation") || rowStr.includes("branch") || rowStr.includes("area"))) {
+            headerIdx = i;
+            break;
+        }
+    }
+
+    if (headerIdx === -1) {
+        // Fallback: look for any row with significant columns
+        for (let i = 0; i < Math.min(rawData.length, 10); i++) {
+            if (rawData[i] && rawData[i].length > 2) {
+                headerIdx = i;
+                break;
+            }
+        }
+    }
+
+    if (headerIdx === -1) {
+        throw new Error("Could not find the header row in this file.");
+    }
+
+    const jsonData = XLSX.utils.sheet_to_json(worksheet, { range: headerIdx, raw: false, defval: "" });
+    if (jsonData.length === 0) {
+        throw new Error("The Excel file has no data below the headers.");
+    }
+
+    const columns = Object.keys(jsonData[0]);
+    
+    // Resolve target columns
+    const findCol = (keys) => {
+        return columns.find(c => {
+            const sc = c.toLowerCase().replace(/[\s-_]/g, '');
+            return keys.some(k => sc.includes(k.toLowerCase().replace(/[\s-_]/g, '')));
+        }) || "";
+    };
+
+    const statusCol = findCol(["status"]) || columns.find(c => c.toLowerCase() === 'status');
+    const paymentStatusCol = columns.find(c => c.toLowerCase().trim() === 'payment status') || findCol(["paymentstatus", "paystatus", "payment"]);
+    const regionCol = columns.find(c => c.toLowerCase().trim() === 'region') || findCol(["region", "state", "circle"]);
+    const divisionCol = columns.find(c => c.toLowerCase().trim() === 'division') || findCol(["division", "div.", "div", "department", "dept"]);
+    const areaCol = columns.find(c => c.toLowerCase().trim() === 'area') || findCol(["area", "zone"]);
+    const workLocCol = columns.find(c => c.toLowerCase().trim() === 'worklocation' || c.toLowerCase().trim() === 'work location' || c.toLowerCase().trim() === 'branch' || c.toLowerCase().trim() === 'location') || findCol(["worklocation", "workloc", "branch", "location"]);
+
+    if (!statusCol) {
+        throw new Error("Could not find a 'Status' column in the Excel sheet.");
+    }
+    if (!paymentStatusCol) {
+        throw new Error("Could not find a 'Payment status' column in the Excel sheet.");
+    }
+    if (!regionCol || !divisionCol || !areaCol || !workLocCol) {
+        throw new Error("Could not identify Region, Division, Area, or Worklocation columns in the file.");
+    }
+
+    // Filters:
+    // status is Completed (case-insensitive)
+    // payment status is one of: Not Collected, Promise To Pay, Fully Collected (case-insensitive)
+    const allowedPaymentStatuses = ["not collected", "promise to pay", "fully collected"];
+    
+    ftopFilteredData = jsonData.filter(row => {
+        const statusVal = String(row[statusCol] || "").trim().toLowerCase();
+        const payVal = String(row[paymentStatusCol] || "").trim().toLowerCase();
+        
+        const statusMatch = (statusVal === "completed");
+        const payMatch = allowedPaymentStatuses.includes(payVal);
+        
+        return statusMatch && payMatch;
+    });
+
+    if (ftopFilteredData.length === 0) {
+        ftopStatusText.textContent = "No rows found matching the conditions: Status = Completed & Payment Status in [Not Collected, Promise To Pay, Fully Collected].";
+        ftopStatusText.style.color = "#f59e0b";
+        document.querySelector('.ftop-spinner').style.display = 'none';
+        return;
+    }
+
+    // Keep columns mapping for rendering/export
+    window.ftopCols = {
+        status: statusCol,
+        paymentStatus: paymentStatusCol,
+        region: regionCol,
+        division: divisionCol,
+        area: areaCol,
+        workLoc: workLocCol
+    };
+
+    // Default active tab is region-wise
+    ftopActiveTab = "region";
+    renderFtopPivot();
+
+    ftopStatusText.textContent = `Processing complete! Found ${ftopFilteredData.length} matching rows.`;
+    ftopStatusText.style.color = "var(--success)";
+    document.querySelector('.ftop-spinner').style.display = 'none';
+    document.getElementById('ftopPivotContainer').style.display = 'block';
+}
+
+function renderFtopPivot() {
+    const reportContainer = document.getElementById('ftopPivotReport');
+    const cols = window.ftopCols;
+    const tab = ftopActiveTab;
+
+    // Reset tabs UI
+    document.querySelectorAll('.ftop-slide-tab').forEach(t => t.classList.remove('active'));
+    if (tab === 'region') document.getElementById('ftopTabRegion').classList.add('active');
+    if (tab === 'division') document.getElementById('ftopTabDivision').classList.add('active');
+    if (tab === 'area') document.getElementById('ftopTabArea').classList.add('active');
+    if (tab === 'worklocation') document.getElementById('ftopTabWorklocation').classList.add('active');
+
+    let groupCol = "";
+    let groupLabel = "";
+
+    if (tab === 'region') {
+        groupCol = cols.region;
+        groupLabel = "Region";
+    } else if (tab === 'division') {
+        groupCol = cols.division;
+        groupLabel = "Division";
+    } else if (tab === 'area') {
+        groupCol = cols.area;
+        groupLabel = "Area";
+    } else {
+        groupCol = cols.workLoc;
+        groupLabel = "Work Location";
+    }
+
+    // Get selected Date & Time values
+    const dateInput = document.getElementById('ftopReportDate');
+    const timeInput = document.getElementById('ftopReportTime');
+    
+    if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+    }
+    
+    let selectedTime = "10 AM";
+    if (timeInput && timeInput.value) {
+        selectedTime = timeInput.value.trim();
+    }
+    
+    let selectedDate = "";
+    if (dateInput && dateInput.value) {
+        const parts = dateInput.value.split('-');
+        selectedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    } else {
+        selectedDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '-');
+    }
+
+    // Group and aggregate counts by Payment Status
+    const counts = {};
+    ftopFilteredData.forEach(row => {
+        const val = String(row[groupCol] || "").trim();
+        const valUpper = val.toUpperCase();
+        
+        // REMOVE THE NA and blank regions/groups
+        if (valUpper === "NA" || valUpper === "N/A" || valUpper === "" || valUpper === "(BLANK)" || valUpper === "NULL") {
+            return;
+        }
+        
+        if (!counts[val]) {
+            counts[val] = { collected: 0, notCollected: 0, ptp: 0, total: 0 };
+        }
+        
+        const payVal = String(row[cols.paymentStatus] || "").trim().toLowerCase();
+        if (payVal === "fully collected") {
+            counts[val].collected++;
+        } else if (payVal === "not collected") {
+            counts[val].notCollected++;
+        } else if (payVal === "promise to pay") {
+            counts[val].ptp++;
+        }
+        counts[val].total++;
+    });
+
+    // Sort keys alphabetically
+    const keys = Object.keys(counts).sort((a, b) => a.localeCompare(b));
+
+    let rowsHtml = "";
+    const totals = { collected: 0, notCollected: 0, ptp: 0, total: 0 };
+    
+    keys.forEach(key => {
+        totals.collected += counts[key].collected;
+        totals.notCollected += counts[key].notCollected;
+        totals.ptp += counts[key].ptp;
+        totals.total += counts[key].total;
+
+        rowsHtml += `
+            <tr style="background:#fff;">
+                <td style="color: #000; font-weight: 700; border:1px solid #000; text-align:left; padding:8px;">${key.toUpperCase()}</td>
+                <td style="border:1px solid #000; text-align:center; padding:8px;">${counts[key].collected}</td>
+                <td style="border:1px solid #000; text-align:center; padding:8px;">${counts[key].notCollected}</td>
+                <td style="border:1px solid #000; text-align:center; padding:8px;">${counts[key].ptp}</td>
+                <td style="border:1px solid #000; text-align:center; padding:8px; font-weight:700;">${counts[key].total}</td>
+            </tr>
+        `;
+    });
+
+    const html = `
+        <table id="ftopPivotTable" class="pivot-table" style="background:#fff; border:1px solid #000; color:#000; font-family:'Calibri', 'Arial', sans-serif; border-collapse:collapse; width:100%; max-width:800px; margin:0 auto; box-shadow: none;">
+          <thead>
+            <tr style="background:#f4b084; color:#000; border:1px solid #000;">
+              <th colspan="4" style="padding:10px; font-size:1.15rem; font-weight:700; border:1px solid #000; text-align: center; background:#f4b084; color:#000;">
+                ${groupLabel.toUpperCase()} WISE FTOD COLLECTION TASK FOR THE DAY @ ${selectedTime}
+              </th>
+              <th style="padding:10px; font-size:1rem; font-weight:700; border:1px solid #000; text-align: center; background:#f4b084; color:#000;">
+                ${selectedDate}
+              </th>
+            </tr>
+            <tr style="background:#a9d08e; color:#385723; border:1px solid #000; font-weight:700;">
+              <th style="border:1px solid #000; padding:8px; text-align:left; color:#385723; background:#a9d08e;">${groupLabel.toUpperCase()} NAME</th>
+              <th style="border:1px solid #000; padding:8px; text-align:center; color:#385723; background:#a9d08e;">Visited-Collected</th>
+              <th style="border:1px solid #000; padding:8px; text-align:center; color:#385723; background:#a9d08e;">Visited-Not Collected</th>
+              <th style="border:1px solid #000; padding:8px; text-align:center; color:#385723; background:#a9d08e;">Visited-PTP</th>
+              <th style="border:1px solid #000; padding:8px; text-align:center; color:#385723; background:#a9d08e;">Grand Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+            <tr style="background:#ffff00; font-weight:700; color:#000;">
+              <td style="border:1px solid #000; padding:8px; text-align:left; background:#ffff00; color:#000;">Grand Total</td>
+              <td style="border:1px solid #000; padding:8px; text-align:center; background:#ffff00; color:#000;">${totals.collected}</td>
+              <td style="border:1px solid #000; padding:8px; text-align:center; background:#ffff00; color:#000;">${totals.notCollected}</td>
+              <td style="border:1px solid #000; padding:8px; text-align:center; background:#ffff00; color:#000;">${totals.ptp}</td>
+              <td style="border:1px solid #000; padding:8px; text-align:center; background:#ffff00; color:#000;">${totals.total}</td>
+            </tr>
+          </tbody>
+        </table>
+    `;
+
+    reportContainer.innerHTML = html;
+}
+
+window.switchFtopTab = function(tab) {
+    ftopActiveTab = tab;
+    if (ftopFilteredData.length > 0) {
+        renderFtopPivot();
+    }
+}
+
+// Date & Time event listeners to auto-refresh table title
+document.getElementById('ftopReportDate')?.addEventListener('change', () => {
+    if (ftopFilteredData.length > 0) renderFtopPivot();
+});
+document.getElementById('ftopReportTime')?.addEventListener('input', () => {
+    if (ftopFilteredData.length > 0) renderFtopPivot();
+});
+
+// Download Filtered Excel
+document.getElementById('ftopDownloadBtn')?.addEventListener('click', () => {
+  if (!ftopFilteredData.length) return;
+  
+  const ws = XLSX.utils.json_to_sheet(ftopFilteredData);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Filtered Data');
+  
+  const outputName = ftopFileName.replace(/\.[^/.]+$/, "") + "_ftop_filtered.xlsx";
+  XLSX.writeFile(wb, outputName);
+});
+
+// Download picture of current pivot
+document.getElementById('ftopDownloadImgBtn')?.addEventListener('click', () => {
+  const tableEl = document.getElementById('ftopPivotTable');
+  if (!tableEl) return;
+  
+  html2canvas(tableEl, {
+    scale: 4,
+    backgroundColor: '#ffffff',
+    useCORS: true,
+    logging: false,
+    onclone: (clonedDoc) => {
+      const tbl = clonedDoc.querySelector('table');
+      if (tbl) {
+        tbl.style.border = '2px solid #000';
+        tbl.style.fontFamily = "'Calibri', 'Arial', sans-serif";
+        const ths = tbl.querySelectorAll('th');
+        const tds = tbl.querySelectorAll('td');
+        ths.forEach(h => {
+          h.style.border = '1px solid #000';
+          h.style.fontSize = h.getAttribute('colspan') ? '1.4rem' : '1.1rem';
+          h.style.padding = '10px';
+        });
+        tds.forEach(d => {
+          d.style.border = '1px solid #000';
+          d.style.fontSize = '1.1rem';
+          d.style.padding = '8px';
+        });
+      }
+    }
+  }).then(canvas => {
+    const lnk = document.createElement('a');
+    lnk.download = ftopFileName.replace(/\.[^/.]+$/, "") + `_ftop_${ftopActiveTab}.png`;
+    lnk.href = canvas.toDataURL('image/png', 1.0);
+    lnk.click();
+  }).catch(err => {
+    console.error('Image capture failed:', err);
+  });
+});
+
+// Reset UI
+document.getElementById('ftopResetBtn')?.addEventListener('click', () => {
+  ftopFilteredData = [];
+  ftopFileName = "";
+  ftopSelectedFile = null;
+  
+  ftopFileInput.value = '';
+  document.getElementById('ftopPivotContainer').style.display = 'none';
+  document.getElementById('ftopConfigForm').style.display = 'none';
+  ftopUploadArea.style.display = 'block';
+  ftopStatusPanel.style.display = 'none';
+});
+

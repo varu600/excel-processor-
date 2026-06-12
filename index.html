@@ -70,6 +70,49 @@
           </div>
           <div class="card-btn meeting-btn">Open Meeting <span>→</span></div>
         </div>
+
+        <!-- DPD Visit Card -->
+        <div class="module-card" id="dpdCard" onclick="showSection('dpd')">
+          <div class="card-glow dpd-glow"></div>
+          <div class="card-icon-wrap dpd-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h2 class="card-title">DPD Visit</h2>
+          <p class="card-desc">Manage field visit reports, track DPD performance, and process collections data from Excel files.</p>
+          <div class="card-features">
+            <span>📍 Field Tracker</span>
+            <span>💰 Collection</span>
+            <span>📊 PAR Report</span>
+          </div>
+          <div class="card-btn dpd-btn">Open DPD Visit <span>→</span></div>
+        </div>
+
+        <!-- FTOP Report Card -->
+        <div class="module-card" id="ftopCard" onclick="showSection('ftop')">
+          <div class="card-glow ftop-glow"></div>
+          <div class="card-icon-wrap ftop-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
+          </div>
+          <h2 class="card-title">FTOP Report</h2>
+          <p class="card-desc">Process FTOP Excel files, filter by completed status and payment status, and view location-wise pivot reports.</p>
+          <div class="card-features">
+            <span>📊 Region Pivot</span>
+            <span>📍 Area Pivot</span>
+            <span>🏢 Worklocation Pivot</span>
+          </div>
+          <div class="card-btn ftop-btn">Open FTOP Report <span>→</span></div>
+        </div>
       </div>
     </div>
 
@@ -218,7 +261,173 @@
       </main>
     </div>
 
-  </div><!-- /cont ainer -->
+    <!-- ═══════════════════════════════════════════ -->
+    <!--              DPD VISIT SECTION             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div id="dpdSection" style="display:none;">
+      <div class="section-nav">
+        <button class="back-home-btn" onclick="showSection('home')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 5l-7 7 7 7" />
+          </svg>
+          Home
+        </button>
+        <div class="section-nav-label">📍 DPD Visit Module</div>
+      </div>
+
+      <header class="dpd-header">
+        <h1>DPD Field Hub</h1>
+        <p>Import your Excel reports to synchronize field visits, track PAR levels, and manage collections.</p>
+      </header>
+
+      <main>
+        <div class="dpd-import-grid">
+          <!-- TrackOAP Upload -->
+          <div class="dpd-upload-card" id="trackoapUploadCard">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4"></polyline>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+            </div>
+            <h3>TrackOAP</h3>
+            <p>Upload route tracking and field visit logs</p>
+            <input type="file" id="trackoapFileInput" accept=".xlsx, .xls">
+            <div class="dpd-status" id="trackoapStatus"></div>
+          </div>
+
+          <!-- PAR Upload -->
+          <div class="dpd-upload-card" id="parUploadCard">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+            </div>
+            <h3>PAR Report</h3>
+            <p>Upload Portfolio At Risk analysis files</p>
+            <input type="file" id="parFileInput" accept=".xlsx, .xls">
+            <div class="dpd-status" id="parStatus"></div>
+          </div>
+
+          <!-- Collection Upload -->
+          <div class="dpd-upload-card" id="collectionUploadCard">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+              </svg>
+            </div>
+            <h3>Collection</h3>
+            <p>Upload daily collection and recovery sheets</p>
+            <input type="file" id="collectionFileInput" accept=".xlsx, .xls">
+            <div class="dpd-status" id="collectionStatus"></div>
+          </div>
+
+
+        </div>
+
+        <div class="dpd-actions" style="margin-top: 3rem; text-align: center; display: none;" id="dpdActionContainer">
+            <button id="generateDpdReportBtn" class="download-btn" style="background: linear-gradient(135deg, #f472b6, #db2777); font-size: 1.2rem; padding: 1rem 3rem; border-radius: 50px;">
+                🚀 Generate Combined DPD Report
+            </button>
+        </div>
+
+        <div id="dpdOutputContainer" style="display: none; margin-top: 3rem;">
+            <!-- Output content will be injected here -->
+        </div>
+      </main>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--              FTOP REPORT SECTION           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div id="ftopSection" style="display:none;">
+      <div class="section-nav">
+        <button class="back-home-btn" onclick="showSection('home')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 5l-7 7 7 7" />
+          </svg>
+          Home
+        </button>
+        <div class="section-nav-label">📋 FTOP Report Module</div>
+      </div>
+
+      <header class="ftop-header">
+        <h1>FTOP Report Processor</h1>
+        <p>Upload your Excel file to filter completed tasks and view Region, Area, and Worklocation-wise summary tables.</p>
+      </header>
+
+      <main>
+        <div class="upload-area ftop-upload" id="ftopUploadArea">
+          <div class="icon" style="color: #f59e0b;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <h3>Drag &amp; Drop your FTOP Excel file here</h3>
+          <p>or click to browse</p>
+          <input type="file" id="ftopFileInput" accept=".xlsx, .xls, .csv">
+        </div>
+
+        <div class="status-panel" id="ftopStatusPanel" style="display: none;">
+          <div class="spinner ftop-spinner"></div>
+          <p id="ftopStatusText">Processing your FTOP file...</p>
+        </div>
+
+        <!-- Form for Date & Time selection before generating -->
+        <div id="ftopConfigForm" style="display: none; margin: 1.5rem auto; max-width: 650px; text-align: center; background: rgba(30, 41, 59, 0.6); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); animation: fadeIn 0.3s ease-out;">
+          <h3 style="margin-bottom: 1.5rem; font-weight: 700; font-size: 1.2rem; color: #fbbf24;">Set Report Details</h3>
+          <div style="display: flex; gap: 1.5rem; justify-content: center; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <label for="ftopReportDate" style="font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Report Date:</label>
+              <input type="date" id="ftopReportDate" style="background: #1e293b; color: white; border: 1px solid #334155; border-radius: 8px; padding: 0.5rem; outline: none; font-family: inherit;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <label for="ftopReportTime" style="font-weight: 600; font-size: 0.9rem; color: var(--text-main);">Report Time:</label>
+              <input type="text" id="ftopReportTime" value="10 AM" style="background: #1e293b; color: white; border: 1px solid #334155; border-radius: 8px; padding: 0.5rem; width: 110px; outline: none; text-align: center; font-family: inherit;">
+            </div>
+          </div>
+          <button id="ftopGenerateBtn" class="download-btn" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); font-size: 1.15rem; padding: 0.9rem 2.8rem; border-radius: 8px;">
+            🚀 Generate FTOP Report
+          </button>
+        </div>
+
+        <div id="ftopPivotContainer" style="display: none; margin-top: 2rem;">
+          <!-- Tabs for different pivots -->
+          <div class="slider-container" style="justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; gap: 10px;">
+            <button id="ftopTabRegion" class="slide-tab ftop-slide-tab active" onclick="switchFtopTab('region')">
+              Region-wise Pivot
+            </button>
+            <button id="ftopTabDivision" class="slide-tab ftop-slide-tab" onclick="switchFtopTab('division')">
+              Division-wise Pivot
+            </button>
+            <button id="ftopTabArea" class="slide-tab ftop-slide-tab" onclick="switchFtopTab('area')">
+              Area-wise Pivot
+            </button>
+            <button id="ftopTabWorklocation" class="slide-tab ftop-slide-tab" onclick="switchFtopTab('worklocation')">
+              Worklocation-wise Pivot
+            </button>
+          </div>
+
+          <div id="ftopPivotReportWrapper" style="overflow-x: auto; background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid #334155; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);">
+            <div id="ftopPivotReport"></div>
+          </div>
+
+          <div class="btn-container" id="ftopDownloadBtnContainer" style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <button id="ftopDownloadBtn" class="download-btn" style="background: #f59e0b;">Download Filtered Excel</button>
+            <button id="ftopDownloadImgBtn" class="download-btn" style="background: var(--success); color: white;">Download Picture</button>
+            <button id="ftopResetBtn" class="download-btn" style="background: #475569; color: white;">Upload Another</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </div><!-- /container -->
 
   <script src="script.js?v=999"></script>
 </body>
