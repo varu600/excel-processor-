@@ -1,0 +1,8 @@
+Status,Payment Status,Region,Division,Area,Work Location
+Completed,Not Collected,Telangana,Div A,Hyderabad,Gachibowli
+Completed,Promise To Pay,Telangana,Div B,Secunderabad,Alwal
+Completed,Fully Collected,Karnataka,Div A,Bangalore,Indiranagar
+Pending,Not Collected,Karnataka,Div B,Mysore,Mysore Branch
+Completed,Partially Collected,Telangana,Div A,Hyderabad,Madhapur
+Completed,Not Collected,Karnataka,Div B,Bangalore,Whitefield
+Completed,Promise To Pay,Telangana,Div A,Hyderabad,Gachibowli
